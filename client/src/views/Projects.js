@@ -11,7 +11,7 @@ export default function projects() {
             link: "projects/slider"
         }
     ]
-    return <div className="m-auto w-3/5 items-center">
+    return <div className="main m-auto items-center">
         {projects.map((project, index) => (
             <Link to={project.link}>
                 <button

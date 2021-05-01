@@ -1,5 +1,5 @@
 export default function Contact() {
-    return <div className="w-3/5 m-auto font-sans">
+    return <div className="main m-auto font-sans">
         <p className="p-3">Email: 
             <a href="mailto:igiranezapatrcik31@gmail.com"
                 className="underline text-blue-300"

@@ -1,8 +1,8 @@
 export default function About() {
-    return <div className="w-4/5 m-auto content-center object-center mb-3 pt-2">
+    return <div className="main m-auto content-center object-center mb-3 pt-2">
 
         <center>
-            <img src="images/patrick.jpg" className="w-1/2" alt="my pic :)"/>
+            <img src="images/patrick.jpg" className="w-1/2" alt="my pic :)" />
 
             <h1 className="font-sans text-2xl font-bold object-center p-3">About me!</h1>
         </center>

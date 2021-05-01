@@ -1,5 +1,5 @@
 export default function Home() {
-    return <div className="">
+    return <div className="main">
         <center>
             <h1 className="font-sans text-6xl object-center p-3">Hello World</h1>
         </center>
