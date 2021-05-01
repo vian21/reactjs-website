@@ -1,27 +1,46 @@
-import Layout from './components/Layout'
-import { BrowserRouter as Router, Switch, Route, Li } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
+
 import Home from './views/Home'
 import About from './views/About'
 import Contact from './views/Contact'
+import Projects from './views/Projects'
+import Slider from './views/projects/Slider'
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Layout />
-        <switch>
+
+        <NavBar />
+
+        <Switch>
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/about">
+
+          <Route exact path="/about">
             <About />
           </Route>
-          <Route path="/contact">
+
+          <Route exact path="/contact">
             <Contact />
           </Route>
-        </switch>
+
+          <Route exact path="/projects">
+            <Projects />
+          </Route>
+
+          <Route exact path="/projects/slider">
+            <Slider />
+          </Route>
+
+        </Switch>
       </Router>
 
+      <Footer />
     </div>
   );
 }
