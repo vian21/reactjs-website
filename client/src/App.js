@@ -6,8 +6,16 @@ import Footer from './components/Footer'
 import Home from './views/Home'
 import About from './views/About'
 import Contact from './views/Contact'
+import Login from './views/Login'
+import Logout from './views/Logout'
 import Projects from './views/Projects'
+
 import Slider from './views/projects/Slider'
+import Students from './views/projects/students/Students'
+import Student from './views/projects/students/Student'
+
+//Global variable
+window.genders = ['male', 'Female']
 
 function App() {
   return (
@@ -33,8 +41,24 @@ function App() {
             <Projects />
           </Route>
 
+          <Route exact path="/login">
+            <Login />
+          </Route>
+
+          <Route exact path="/logout">
+            <Logout />
+          </Route>
+
           <Route exact path="/projects/slider">
             <Slider />
+          </Route>
+
+          <Route exact path="/projects/students">
+            <Students />
+          </Route>
+
+          <Route exact path="/projects/students/:id">
+            <Student />
           </Route>
 
         </Switch>
