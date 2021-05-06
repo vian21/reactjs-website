@@ -2,12 +2,15 @@
 This is a website I implemented while learning ReactJS
 
 ## To run
+```
 cd client/
 npm start
-
+```
 open another tab for backend
+```
 cd api/
 npm start
+```
 
 ## Libraries learnt and used
 1. Express
