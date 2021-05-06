@@ -9,7 +9,7 @@ npm start
 open another tab for backend
 ```
 cd api/
-npm start
+node index.js
 ```
 
 ## Libraries learnt and used
