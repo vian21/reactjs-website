@@ -13,9 +13,9 @@ export default function projects() {
     ]
     return <div className="main m-auto items-center">
         {projects.map((project, index) => (
-            <Link to={project.link}>
+            <Link to={project.link}
+                key={index}>
                 <button
-                    key={index}
                     className="p-4 bg-blue-300 text-white rounded-full m-4"
                 >
                     {project.name} ➝</button>

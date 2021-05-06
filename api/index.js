@@ -4,7 +4,7 @@ const app = express()
 
 
 var cors = require('cors')
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser')                       //used to get data from client
 
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
@@ -14,7 +14,8 @@ const jwt = require('jsonwebtoken');
 app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
+app.use(bodyParser.json())                                    //parse json from client
+
 //Mysql connection
 var connect = mysql.createPool({
     host: 'localhost',
@@ -31,14 +32,45 @@ var connect = mysql.createPool({
 app.get('/students', (req, res) => {
     connect.query("SELECT * FROM students", (error, results, fields) => {
         if (error) throw error
-        res.json(results)
+        res.status(200).json(results)
+    })
+})
+
+app.post('/students/create', (req, res) => {
+    const data = req.body
+    connect.query(`INSERT INTO students(name,grade,gender,DOB)
+                    VALUES('${data.name}','${data.grade}',${data.gender},'${data.DOB}')`, (error, results, fields) => {
+        if (error) throw error
+
+        res.status(200).json({ message: "ok" })
     })
 })
 
 app.get('/students/:id', (req, res) => {
     connect.query(`SELECT * FROM students WHERE id=${req.params.id}`, (error, results, fields) => {
         if (error) throw error
-        res.json(results[0])
+        res.status(200).json(results[0])
+    })
+})
+
+app.post('/students/:id/update', (req, res) => {
+    const data = req.body
+    connect.query(`UPDATE students SET
+                    name = '${data.name}',
+                    grade = '${data.grade}',
+                    gender = ${data.gender},
+                    DOB = '${data.DOB}'
+                    WHERE id = ${req.params.id}`, (error, results, fields) => {
+        if (error) throw error
+
+        res.status(200).json({ message: "ok" })
+    })
+})
+
+app.delete('/students/:id/delete', (req, res) => {
+    connect.query(`DELETE FROM students WHERE id=${req.params.id}`, (error, results, fields) => {
+        if (error) throw error
+        res.status(200).json({ message: "ok" })
     })
 })
 
@@ -68,7 +100,7 @@ app.post('/users/login', (req, res) => {
                     var token = jwt.sign(user, "passKey123");
 
                     //send token to user browser
-                    res.json({ token: token })
+                    res.status(200).json({ token: token })
 
                 } else {
                     res.send("ko")

@@ -11,7 +11,9 @@ import Logout from './views/Logout'
 import Projects from './views/Projects'
 
 import Slider from './views/projects/Slider'
+
 import Students from './views/projects/students/Students'
+import CreateStudent from './views/projects/students/CreateStudent'
 import Student from './views/projects/students/Student'
 
 //Global variable
@@ -55,6 +57,10 @@ function App() {
 
           <Route exact path="/projects/students">
             <Students />
+          </Route>
+
+          <Route exact path="/projects/students/create">
+            <CreateStudent />
           </Route>
 
           <Route exact path="/projects/students/:id">
