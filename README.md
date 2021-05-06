@@ -25,4 +25,4 @@ node index.js
 2. React syntax and project folder for a full-stack application with a front-end and backend
 ...
 
-# For Jesus I code 
+# For Jesus I code 😇
