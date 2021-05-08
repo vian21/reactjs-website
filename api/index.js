@@ -9,6 +9,7 @@ var bodyParser = require('body-parser')                       //used to get data
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
+const dayjs = require('dayjs');                              //used to format date
 
 //Enable API to accessed
 app.use(cors())
@@ -49,6 +50,10 @@ app.post('/students/create', (req, res) => {
 app.get('/students/:id', (req, res) => {
     connect.query(`SELECT * FROM students WHERE id=${req.params.id}`, (error, results, fields) => {
         if (error) throw error
+
+        //format date from UTC to YYYY-MM-DD
+        results[0].DOB = dayjs(results[0].DOB).format('YYYY-MM-DD')
+
         res.status(200).json(results[0])
     })
 })

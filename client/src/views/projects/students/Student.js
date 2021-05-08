@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import moment from 'moment'
 
 export default function Student() {
     const { id } = useParams()
     const history = useHistory();
     const [student, setStudent] = useState([])
 
+    //fecth student's data on load
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(`http://localhost:5000/students/${id}`)
@@ -18,20 +18,15 @@ export default function Student() {
         fetchData()
     }, [])
 
+    //create refs to grab data from DOM when user submits
     const name = useRef()
     const grade = useRef()
     const DOB = useRef()
     const gender = useRef()
 
-    function changeDate(event) {
-        event.preventDefault()
-        let newArray = student
-        newArray.DOB = event.target.value
-        setStudent(newArray)
-    }
-
     async function updateStudent(event) {
         event.preventDefault();
+
         const res = await fetch(`http://localhost:5000/students/${id}/update`, {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
@@ -42,7 +37,9 @@ export default function Student() {
                 gender: gender.current.value,
             })
         })
+
         const data = await res.json()
+
         if (data.message == 'ok') {
             history.goBack()
         } else {
@@ -50,11 +47,14 @@ export default function Student() {
         }
 
     }
+
     async function deleteStudent(event) {
         event.preventDefault()
+
         const res = await fetch(`http://localhost:5000/students/${id}/delete`, {
             method: "DELETE"
         })
+        
         const msg = await res.json()
 
         if (msg.message == 'ok') {
@@ -78,10 +78,9 @@ export default function Student() {
                 className=" w-full p-3 border-solid border-2 border-grey-300" /><br /><br />
 
             <h4 className="font-semibold">DOB</h4>
-            <input type="text" id="DOB"
+            <input type="date" id="DOB"
                 placeholder="YYYY-MM-DD"
-                onChange={changeDate}
-                defaultValue={moment(student.DOB).format('YYYY-MM-DD')}
+                defaultValue={student.DOB}
                 ref={DOB}
                 className=" w-full p-3 border-solid border-2 border-grey-300" /><br /><br />
 
@@ -98,7 +97,6 @@ export default function Student() {
             </select><br /><br />
 
             <button
-
                 className="p-3 text-white bg-blue-400 mr-3 w-2/5"
             >Update</button>
             <button
