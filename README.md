@@ -5,7 +5,7 @@ This is a website I implemented while learning ReactJS
 ```
 npm run dev
 ```
-This is start the server and client at the same time
+This will start the API server and the client at the same time
 
 ## Libraries learnt and used
 1. Express
