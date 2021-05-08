@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import moment from 'moment'
 
 export default function CreateStudent() {
 

@@ -1,7 +1,7 @@
 //Back end server for Api request
 const express = require('express')
 const app = express()
-
+require('dotenv').config()
 
 var cors = require('cors')
 var bodyParser = require('body-parser')                       //used to get data from client
@@ -141,4 +141,4 @@ app.use((req, res, next) => {
     res.status(404).send(notFound)
 })
 
-app.listen(5000)
+app.listen(process.env.PORT || 5000)
