@@ -11,6 +11,9 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const dayjs = require('dayjs');                              //used to format date
 
+// 404
+const notFound = "<center><h1>404</h1><h4>Page not found!</h4></center>"
+
 //Enable API to accessed
 app.use(cors())
 
@@ -32,7 +35,10 @@ var connect = mysql.createPool({
  */
 app.get('/students', (req, res) => {
     connect.query("SELECT * FROM students", (error, results, fields) => {
-        if (error) throw error
+        if (error) {
+            res.status(404).send(notFound)
+        }
+
         res.status(200).json(results)
     })
 })
@@ -41,7 +47,9 @@ app.post('/students/create', (req, res) => {
     const data = req.body
     connect.query(`INSERT INTO students(name,grade,gender,DOB)
                     VALUES('${data.name}','${data.grade}',${data.gender},'${data.DOB}')`, (error, results, fields) => {
-        if (error) throw error
+        if (error) {
+            res.status(404).send(notFound)
+        }
 
         res.status(200).json({ message: "ok" })
     })
@@ -49,12 +57,19 @@ app.post('/students/create', (req, res) => {
 
 app.get('/students/:id', (req, res) => {
     connect.query(`SELECT * FROM students WHERE id=${req.params.id}`, (error, results, fields) => {
-        if (error) throw error
+        if (error) {
+            res.status(404).send(notFound)
+        }
 
-        //format date from UTC to YYYY-MM-DD
-        results[0].DOB = dayjs(results[0].DOB).format('YYYY-MM-DD')
+        if (results.length != 0) {
+            //format date from UTC to YYYY-MM-DD
+            results[0].DOB = dayjs(results[0].DOB).format('YYYY-MM-DD')
 
-        res.status(200).json(results[0])
+            res.status(200).json(results[0])
+        } else {
+            res.status(404).send(notFound)
+        }
+
     })
 })
 
@@ -66,7 +81,9 @@ app.post('/students/:id/update', (req, res) => {
                     gender = ${data.gender},
                     DOB = '${data.DOB}'
                     WHERE id = ${req.params.id}`, (error, results, fields) => {
-        if (error) throw error
+        if (error) {
+            res.status(404).send(notFound)
+        }
 
         res.status(200).json({ message: "ok" })
     })
@@ -86,7 +103,9 @@ app.post('/users/login', (req, res) => {
     const data = req.body
     //query
     connect.query(`SELECT*FROM users WHERE email='${data.email}'`, (error, results, fields) => {
-        if (error) throw error
+        if (error) {
+            res.status(404).send(notFound)
+        }
 
         //if user exists
         if (results) {
@@ -116,6 +135,10 @@ app.post('/users/login', (req, res) => {
         }
     })
 
+})
+
+app.use((req, res, next) => {
+    res.status(404).send(notFound)
 })
 
 app.listen(5000)

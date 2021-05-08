@@ -3,14 +3,9 @@ This is a website I implemented while learning ReactJS
 
 ## To run
 ```
-cd client/
-npm start
+npm run dev
 ```
-open another tab for backend
-```
-cd api/
-node index.js
-```
+This is start the server and client at the same time
 
 ## Libraries learnt and used
 1. Express
