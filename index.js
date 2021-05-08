@@ -146,9 +146,10 @@ if (process.env.NODE_ENV === 'production') {
     // Set static folder
     app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
-    app.get('*', (req, res) => {
-        res.send("hello world")
-    });
+}else{
+    app.use((req,res)=>{
+        res.status(404).send(notFound)
+    })
 }
 
 app.listen(process.env.PORT || 5000)
