@@ -19,5 +19,3 @@ This will start the API server and the client at the same time
 1. Using useEffect, useState and useRef
 2. React syntax and project folder for a full-stack application with a front-end and backend
 ...
-
-# For Jesus I code 😇
